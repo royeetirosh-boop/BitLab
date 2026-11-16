@@ -1,5 +1,18 @@
 apply plugin: 'com.android.application'
 
+// Release signing stays out of git. Env vars win; otherwise android/key.properties (untracked).
+def keystoreProperties = new Properties()
+def keystorePropertiesFile = rootProject.file("key.properties")
+if (keystorePropertiesFile.exists()) {
+    keystorePropertiesFile.withInputStream { keystoreProperties.load(it) }
+}
+
+def storePath = System.getenv("BITLAB_STORE_FILE") ?: keystoreProperties.getProperty("storeFile")
+def releaseStorePassword = System.getenv("BITLAB_STORE_PASSWORD") ?: keystoreProperties.getProperty("storePassword")
+def releaseKeyAlias = System.getenv("BITLAB_KEY_ALIAS") ?: keystoreProperties.getProperty("keyAlias")
+def releaseKeyPassword = System.getenv("BITLAB_KEY_PASSWORD") ?: keystoreProperties.getProperty("keyPassword")
+def hasReleaseSigning = storePath && releaseStorePassword && releaseKeyAlias && releaseKeyPassword
+
 android {
     namespace = "com.bitlab.ee"
     compileSdk = rootProject.ext.compileSdkVersion
@@ -16,8 +29,22 @@ android {
             ignoreAssetsPattern = '!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~'
         }
     }
+    signingConfigs {
+        release {
+            if (hasReleaseSigning) {
+                def candidate = new File(storePath)
+                storeFile candidate.isAbsolute() ? candidate : rootProject.file(storePath)
+                storePassword releaseStorePassword
+                keyAlias releaseKeyAlias
+                keyPassword releaseKeyPassword
+            }
+        }
+    }
     buildTypes {
         release {
+            if (hasReleaseSigning) {
+                signingConfig signingConfigs.release
+            }
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
