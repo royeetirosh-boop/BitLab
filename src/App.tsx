@@ -4,6 +4,7 @@ import { BooleanPage } from './pages/BooleanPage'
 import { CircuitLabPage } from './pages/CircuitLabPage'
 import { ConvertPage } from './pages/ConvertPage'
 import { FlipFlopPage } from './pages/FlipFlopPage'
+import { AboutPage } from './pages/AboutPage'
 import { HomePage } from './pages/HomePage'
 import { KarnaughPage } from './pages/KarnaughPage'
 import { LessonPage } from './pages/LessonPage'
@@ -26,6 +27,7 @@ export default function App() {
           <Route path="seq" element={<FlipFlopPage />} />
           <Route path="circuits" element={<CircuitLabPage />} />
           <Route path="tools" element={<ToolkitPage />} />
+          <Route path="about" element={<AboutPage />} />
           <Route path="bcd" element={<Navigate to="/lesson" replace />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>

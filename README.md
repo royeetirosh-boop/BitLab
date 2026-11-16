@@ -25,7 +25,7 @@ npm run mobile:ios           # opens Xcode (macOS only)
 - **Android:** install [Android Studio](https://developer.android.com/studio), open the `android/` folder, run on an emulator or device.
 - **iOS:** requires a Mac + Xcode. Open `ios/App/App.xcworkspace` (or use `npm run mobile:ios`), then run on Simulator / device.
 
-App ID: `com.bitlab.ee`
+App ID: `com.bitlab.ee`. Version 1.0 (versionCode 1). Release signing and the in-app updater are in [RELEASING.md](RELEASING.md).
 
 ## Modules
 

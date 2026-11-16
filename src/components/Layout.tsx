@@ -1,4 +1,5 @@
 import { NavLink, Outlet } from 'react-router-dom'
+import { UpdatePrompt } from './UpdatePrompt'
 
 const links = [
   { to: '/', label: 'Home', end: true },
@@ -11,6 +12,7 @@ const links = [
   { to: '/seq', label: 'Seq' },
   { to: '/circuits', label: 'Circuits' },
   { to: '/tools', label: 'Tools' },
+  { to: '/about', label: 'About' },
 ]
 
 export function Layout() {
@@ -37,6 +39,7 @@ export function Layout() {
       <main>
         <Outlet />
       </main>
+      <UpdatePrompt />
     </div>
   )
 }

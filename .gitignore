@@ -33,7 +33,9 @@ android/.idea
 ios/App/Pods
 ios/App/Podfile.lock
 ios/DerivedData
+*.jks
 *.keystore
 !debug.keystore
+key.properties
 .capacitor
 
